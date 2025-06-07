@@ -15,3 +15,16 @@ const userSchema = new mongoose.Schema({
   privateKey: { type: String }, // Store private key for signing
   createdAt: { type: Date, default: Date.now }
 });
+
+
+userSchema.pre("save", function (next) {
+  if (!this.privateKey) {
+    const { privateKey } = crypto.generateKeyPairSync("rsa", {
+      modulusLength: 2048,
+    });
+    this.privateKey = privateKey.export({ type: "pkcs1", format: "pem" });
+  }
+  next();
+});
+
+module.exports = mongoose.model("User", userSchema);
