@@ -34,6 +34,7 @@ mongoose
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/memos", require("./routes/memoRoutes"));
 
 
 
