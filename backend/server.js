@@ -7,7 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const { setIO } = require("./socket"); // ✅ import setIO
-
+const notificationRoutes = require('./routes/NotificationRoutes');
 
 
 dotenv.config();
@@ -35,8 +35,7 @@ mongoose
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/memos", require("./routes/memoRoutes"));
-
-
+app.use('/api/notifications', notificationRoutes);
 
 
 app.get("/", (req, res) => {
@@ -53,5 +52,5 @@ io.on("connection", (socket) => {
 });
 
 // Server Start
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -16,7 +16,9 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+// Hash password before saving
 
+// Generate private key when creating a user
 userSchema.pre("save", function (next) {
   if (!this.privateKey) {
     const { privateKey } = crypto.generateKeyPairSync("rsa", {
